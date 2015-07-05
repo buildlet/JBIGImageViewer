@@ -35,21 +35,18 @@ Windows 7 Ultimate x64 で動作を確認しています。
 
 ライセンス
 ----------
-このソフトウェアは MIT ライセンスの下で配布されます。  
-License.txt を参照してください。
+このソフトウェアは MTI ライセンスの下で配布されます。  
+[LICENCE](/LICENSE "LICENSE") を参照してください。
 
 
 JbigKit for Windows および JBIG-KIT は GNU GPL の下で配布されます。  
-jbigkit.txt を参照してください。 (このファイルは jbigkit-1.6 の jbig.c の先頭部分を抜き出したものです。)  
-  
+
 JbigKit for Windows のソースコードは下記の URL からダウンロードしてください。  
 [http://gnuwin32.sourceforge.net/packages/jbigkit.htm](http://gnuwin32.sourceforge.net/packages/jbigkit.htm "JbigKit for Windows")
   
   
 NetPbm for Windows および Netpbm のライセンスについては、下記 URL の Legal Usability を参照してください。  
 [http://netpbm.sourceforge.net/](http://netpbm.sourceforge.net/ "Netpbm")  
-  
-また、netpbm.txt を参照してください。 (このファイルは netpbm-10.27 の copyright_summary をリネームしたものです。)  
   
 NetPbm for Windows のソースコードは下記の URL からダウンロードしてください。  
 [http://gnuwin32.sourceforge.net/packages/netpbm.htm](http://gnuwin32.sourceforge.net/packages/netpbm.htm "NetPbm for Windows")
