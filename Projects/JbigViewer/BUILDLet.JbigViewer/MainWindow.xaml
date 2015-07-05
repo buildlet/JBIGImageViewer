@@ -1,0 +1,61 @@
+﻿<Window x:Class="BUILDLet.JbigViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:app="clr-namespace:BUILDLet.JbigViewer"
+        xmlns:prop="clr-namespace:BUILDLet.JbigViewer.Properties"
+        Title="{x:Static app:App.Name}" Height="600" Width="425" KeyDown="Window_KeyDown" AllowDrop="True" Drop="Window_Drop" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Name="FileMenuItem" Header="{x:Static prop:Resources.FileMenuItemHeader}">
+                <MenuItem Name="OpenMenuItem" Header="{x:Static prop:Resources.OpenMenuItemHeader}" Click="OpenMenuItem_Click" />
+                <MenuItem Name="SaveAsMenuItem" Header="{x:Static prop:Resources.SaveAsMenuItemHeader}" Click="SaveAsMenuItem_Click" />
+                <MenuItem Name="CloseMenuItem" Header="{x:Static prop:Resources.CloseMenuItemHeader}" Click="CloseMenuItem_Click" />
+                <Separator />
+                <MenuItem Name="ExitMenuItem" Header="{x:Static prop:Resources.ExitMenuItemHeader}" Click="ExitMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Name="ImageMenuItem" Header="{x:Static prop:Resources.ImageMenuItemHeader}">
+                <MenuItem Name="RemoveUnexpectedDataMenuItem" Header="{x:Static prop:Resources.RemoveUnexpectedDataMenuItemHeader}" IsCheckable="True" Click="RemoveUnexpectedDataMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Name="ViewMenuItem" Header="{x:Static prop:Resources.ViewMenuItemHeader}">
+                <MenuItem Name="NextPageMenuItem" Header="{x:Static prop:Resources.NextPageMenuItemHeader}" Click="NextPageMenuItem_Click" />
+                <MenuItem Name="PreviousPageMenuItem" Header="{x:Static prop:Resources.PreviousPageMenuItemHeader}" Click="PreviousPageMenuItem_Click" />
+                <Separator />
+                <MenuItem Name="SameAsOriginalImageSizeMenuItem" Header="{x:Static prop:Resources.SameAsOriginalImageSizeMenuItemHeader}" IsCheckable="True" Click="SameAsOriginalImageSizeMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Name="HelpMenuItem" Header="{x:Static prop:Resources.HelpMenuItemHeader}">
+                <MenuItem Name="AboutMenuItem" Header="{x:Static prop:Resources.AboutMenuItemHeader}" Click="AboutMenuItem_Click" />
+            </MenuItem>
+        </Menu>
+
+        <ScrollViewer Name="MainView" Grid.Row="1" Background="LightGray">
+            <Image Name="MainImage" />
+        </ScrollViewer>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" Name="LeftButton" Margin="5" ToolTip="{x:Static prop:Resources.PreviousPageToolTip}" Click="LeftButton_Click">
+                <Polygon Name="LeftArrowPolygon" Points="2,9 24,0 24,18" Fill="DimGray" />
+            </Button>
+
+            <TextBox Name="PageNumberTextBox" Grid.Column="2" Margin="5" TextAlignment="Center" VerticalContentAlignment="Center" TextChanged="PageNumberTextBox_TextChanged" />
+            
+            <Button Grid.Column="3" Name="RightButton" Margin="5" ToolTip="{x:Static prop:Resources.NextPageToolTip}" Click="RightButton_Click">
+                <Polygon Name="RightArrowPolygon" Points="24,9 2,0 2,18" Fill="DimGray" />
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>
