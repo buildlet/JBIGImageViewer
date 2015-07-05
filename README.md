@@ -47,7 +47,7 @@ JbigKit for Windows のソースコードは下記の URL からダウンロー�
   
 NetPbm for Windows および Netpbm のライセンスについては、下記 URL の Legal Usability を参照してください。  
 [http://netpbm.sourceforge.net/](http://netpbm.sourceforge.net/ "Netpbm")  
-  
+
 NetPbm for Windows のソースコードは下記の URL からダウンロードしてください。  
 [http://gnuwin32.sourceforge.net/packages/netpbm.htm](http://gnuwin32.sourceforge.net/packages/netpbm.htm "NetPbm for Windows")
 
