@@ -7,6 +7,9 @@ JBIG Image Viewer Version **1.0.0.0**
 概要
 ----
 JBIG1 フォーマットの画像ファイルを閲覧するソフトウェアです。  
+
+![Screenshot](/images/JBIGView.png "Screenshot")
+
 JBIG Image Viewer は、次の方法で JBIG1 フォーマットの画像を変換・表示します。  
   1. jbgtopbm.exe (JbigKit for Windows) を実行して、JIBG1 フォーマットの画像ファイルを 
      PBM (Portable Bitmap) / PPM (Portable Pixel Map) フォーマットに変換して、一時ファイルとして出力します。
