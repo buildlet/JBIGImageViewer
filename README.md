@@ -1,7 +1,7 @@
 JbigViewer
 ==========
 
-JBIG Image Viewer Version **1.0.0.0**
+JBIG Image Viewer Version **1.1.0.0**
 
 
 概要
@@ -14,6 +14,9 @@ JBIG Image Viewer は、次の方法で JBIG1 フォーマットの画像を変�
   1. jbgtopbm.exe (JbigKit for Windows) を実行して、JIBG1 フォーマットの画像ファイルを 
      PBM (Portable Bitmap) / PPM (Portable Pixel Map) フォーマットに変換して、一時ファイルとして出力します。
   2. ppmtobmp.exe (NetPbm for Windows) を実行して、一時ファイルをビットマップ画像ファイルに変換して表示します。
+
+JBIG データの中に、ある特定のパターンで始まるテキスト行が出現した場合、そのテキスト行を除去します。  
+テキスト行のライン数がある閾値に達すると、それ以降を次のページとして扱います。
 
 
 インストール方法
@@ -57,6 +60,12 @@ NetPbm for Windows のソースコードは下記の URL からダウンロー�
 
 変更履歴
 --------
+### Version 1.1.0.0
+**2015/07/26**  
+テキスト除去とページ分割処理を見直し。  
+ビットマップに変換済みのファイルは、ファイルを閉じるまで保持し、ファイルを閉じるタイミングで削除するように処理を見直し。  
+アイコン画像を微修正。  
+
 ### Version 1.0.0.0
 **2015/07/05**  
 1st リリース
