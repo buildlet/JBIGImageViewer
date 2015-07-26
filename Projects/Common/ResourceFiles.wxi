@@ -15,10 +15,10 @@
   <?define Resource_ReadmeFile_JBIGView="..\..\Common\Resources\Readme\JBIGViewSetup\Readme.txt"?>
   
   <!-- Logo -->
-  <?define Resource_LogoFile_WOLSetupBootstrapper="..\..\Common\Resources\Logo\WOLSetupBootstrapper\BUILDLet_Yellow_64x64.png"?>
-  <?define Resource_LogoFile_PSUtilitySetupBootstrapper="..\..\Common\Resources\Logo\PSUtilitiesSetupBootstrapper\BUILDLet_White2_64x64.png"?>
-  <?define Resource_LogoFile_PSPackageMakerSetupBootstrapper="..\..\Common\Resources\Logo\PSPackageMakerSetupBootstrapper\BUILDLet_DarkRed_64x64.png"?>
-  <?define Resource_LogoFile_JBIGViewSetupBootstrapper="..\..\Common\Resources\Logo\JBIGViewSetupBootstrapper\BUILDLet_Orange_64x64.png"?>
+  <?define Resource_LogoFile_WOLSetupBootstrapper="..\..\Common\Resources\Logo\WOLSetupBootstrapper\BUILDLet.Logo_Yellow-LightBlue_64x64.png"?>
+  <?define Resource_LogoFile_PSUtilitySetupBootstrapper="..\..\Common\Resources\Logo\PSUtilitiesSetupBootstrapper\BUILDLet.Logo_White-LightBlue_64x64.png"?>
+  <?define Resource_LogoFile_PSPackageMakerSetupBootstrapper="..\..\Common\Resources\Logo\PSPackageMakerSetupBootstrapper\BUILDLet.Logo_White-DarkRed_64x64.png"?>
+  <?define Resource_LogoFile_JBIGViewSetupBootstrapper="..\..\Common\Resources\Logo\JBIGViewSetupBootstrapper\BUILDLet.Logo_White-LightOrange_64x64.png"?>
 
   
   <!-- .NET Framework 4.5 (Redist) -->

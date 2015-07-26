@@ -53,9 +53,9 @@ namespace BUILDLet.JbigViewer
     public partial class MainWindow : Window
     {
         private JbigFragments innerJbigData = null;
+        private Dictionary<int, string> bitmapFileNames = new Dictionary<int, string>();
 
         private string sourceFileName = string.Empty;
-        private string currentPageBitmapFileName = string.Empty;
         private int currentPage = -1;
 
 
@@ -75,21 +75,31 @@ namespace BUILDLet.JbigViewer
             this.RightArrowPolygon.Fill = new SolidColorBrush(Colors.LightGray);
 
             // Change Cursor
-            // this.Cursor = Cursors.Wait;
             Mouse.OverrideCursor = Cursors.Wait;
 
             try
             {
-                // Set Source File Name
-                string filename = (this.innerJbigData == null) ? this.sourceFileName : this.innerJbigData.FileNames[page - 1];
+                string filename;
+                if (!this.bitmapFileNames.TryGetValue(page - 1, out filename))
+                {
+                    if (this.innerJbigData == null)
+                    {
+                        filename = this.sourceFileName;
+                    }
+                    else
+                    {
+                        filename = this.innerJbigData.FileNames[page - 1];
+                    }
 
-                // JBIG -> Bitmap
-                this.currentPageBitmapFileName = JbigToBitmap.Convert(filename);
+                    // JBIG -> Bitmap
+                    this.bitmapFileNames.Add(page - 1, JbigToBitmap.Convert(filename));
+                }
+
 
                 // new Btimap Image
                 BitmapImage image = new BitmapImage();
                 image.BeginInit();
-                image.UriSource = new Uri(this.currentPageBitmapFileName);
+                image.UriSource = new Uri(this.bitmapFileNames[page - 1]);
                 image.CacheOption = BitmapCacheOption.OnLoad;
                 image.EndInit();
 
@@ -106,7 +116,6 @@ namespace BUILDLet.JbigViewer
             finally
             {
                 // Restore Cursor
-                // this.Cursor = null;
                 Mouse.OverrideCursor = null;
             }
         }
@@ -141,19 +150,13 @@ namespace BUILDLet.JbigViewer
         // Show Page
         private void showPage(int page)
         {
-            if ((page != this.currentPage) && (page > 0) && (page <= this.innerJbigData.FileNames.Length))
+            if ((page != this.currentPage) && (page > 0) && (this.innerJbigData != null) && (page <= this.innerJbigData.FileNames.Length))
             {
                 // Clear ImageSource
                 this.MainImage.Source = null;
 
                 try
                 {
-                    // Delete Temporary File
-                    if (!string.IsNullOrEmpty(this.currentPageBitmapFileName))
-                    {
-                        File.Delete(this.currentPageBitmapFileName);
-                    }
-
                     // Show Bitmap Image
                     // and Increment current page number
                     this.showImage(page);
@@ -173,12 +176,6 @@ namespace BUILDLet.JbigViewer
 
                 try
                 {
-                    // Delete Temporary File
-                    if (!string.IsNullOrEmpty(this.currentPageBitmapFileName))
-                    {
-                        File.Delete(this.currentPageBitmapFileName);
-                    }
-
                     // Show Bitmap Image
                     // and Increment current page number
                     this.showImage(++this.currentPage);
@@ -198,12 +195,6 @@ namespace BUILDLet.JbigViewer
 
                 try
                 {
-                    // Delete Temporary File
-                    if (!string.IsNullOrEmpty(this.currentPageBitmapFileName))
-                    {
-                        File.Delete(this.currentPageBitmapFileName);
-                    }
-
                     // Show Bitmap Image
                     // and Increment current page number
                     this.showImage(--this.currentPage);
@@ -232,17 +223,22 @@ namespace BUILDLet.JbigViewer
                         this.innerJbigData = null;
                     }
 
-                    // Delete Temporary File
-                    if (!string.IsNullOrEmpty(this.currentPageBitmapFileName))
+                    // Delete Bitmap Image Page File(s)
+                    if (this.bitmapFileNames != null)
                     {
-                        File.Delete(this.currentPageBitmapFileName);
+                        foreach (var filename in this.bitmapFileNames.Values)
+                        {
+                            // Delete Bitmap Image File (if exists)
+                            if (File.Exists(filename)) { File.Delete(filename); }
+                        }
+
+                        // Clear
+                        this.bitmapFileNames.Clear();
                     }
+
                 }
                 catch (Exception e) { throw e; }
 
-
-                // Clear Temporary File Name
-                this.currentPageBitmapFileName = string.Empty;
 
                 // Clear current page number
                 this.currentPage = -1;
@@ -259,10 +255,30 @@ namespace BUILDLet.JbigViewer
             try
             {
                 // Save (Copy) Image as Bitmap File
-                File.Copy(this.currentPageBitmapFileName, filename, true);
+                File.Copy(this.bitmapFileNames[this.currentPage - 1], filename, true);
             }
             catch (Exception e) { throw e; }
         }
+
+
+        // Update Page Number TextBox
+        private void updatePageNumberTextBox()
+        {
+            try
+            {
+                int page;
+                if (int.TryParse(this.PageNumberTextBox.Text, out page) && (this.PageNumberTextBox.Text != this.currentPage.ToString()))
+                {
+                    // Show Page
+                    this.showPage(page);
+                }
+
+                // Update (Modify) Page Number
+                this.PageNumberTextBox.Text = this.currentPage.ToString();
+            }
+            catch (Exception e) { throw e; }
+        }
+
 
 
         // Update Status

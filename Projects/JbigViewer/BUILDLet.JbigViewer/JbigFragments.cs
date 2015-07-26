@@ -28,6 +28,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.IO;
+
 using BUILDLet.Imaging;
 
 
@@ -37,10 +38,9 @@ namespace BUILDLet.JbigViewer
     {
         private readonly string fileHeaderText = "\x1B%-12345X@PJL\r\n";
         private readonly string fileFooterText = "\x1B%-12345X\r\n";
-        private readonly string lineHeaderText = "@PJL ";
+        private readonly string lineHeaderText = "@PJL";
 
-        private readonly int maxHeaderLength = 1024 * 2;
-        private readonly int bufsize = (int)Math.Pow(1024, 2);
+        private readonly int removableLineCount = 3;
 
         private string inputFileName = string.Empty;
         private List<string> outputFileNames = new List<string>();
@@ -64,90 +64,147 @@ namespace BUILDLet.JbigViewer
 
             try
             {
+                // open Input Stream
                 using (FileStream inputStream = new FileStream(this.inputFileName, FileMode.Open, FileAccess.Read))
                 {
+                    byte[] buffer = new byte[this.fileHeaderText.Length];
+
                     // Validate File Header
-                    if (!this.readFileHeader(inputStream))
+                    if ((inputStream.Read(buffer, 0, this.fileHeaderText.Length) != this.fileHeaderText.Length) ||
+                        (ASCIIEncoding.ASCII.GetString(buffer) != this.fileHeaderText))
                     {
-                        // PJL text data is NOT found at the file header.
+                        // PJL lineText data is NOT found at the file header.
                         this.outputFileNames.Add(this.inputFileName);
                         return;
                     }
 
 
 
-                    // for each JBIG data fragments
+                    // for JBIG data fragments Roop
                     while (inputStream.Position < inputStream.Length)
                     {
-                        // initialize buffer (to read LINE header)
-                        byte[] buffer = new byte[this.lineHeaderText.Length];
+                        int data;
+                        int lineCount = 0;
+                        bool pageHead = true;
+                        List<byte> textPart = new List<byte>();
+                        List<byte> footPart = new List<byte>();
 
-
-
-                        // Read PJL part
-                        // Read anc Check Line Header
-                        while ((inputStream.Read(buffer, 0, buffer.Length) == buffer.Length) && (ASCIIEncoding.ASCII.GetString(buffer) == this.lineHeaderText))
-                        {
-                            // Read to line end (CRLF)
-                            for (int i = 0; i < this.maxHeaderLength; i++)
-                            {
-                                // reach to line end (CRLF)
-                                if ((inputStream.ReadByte() == Convert.ToInt32('\r')) && (inputStream.ReadByte() == Convert.ToInt32('\n'))) { break; }
-
-                                // PJL part does not end.
-                                if (i >= this.maxHeaderLength - 1) { throw new FileFormatException(); }
-                            }
-                        }
-                        // back current position of input stream
-                        inputStream.Seek(-lineHeaderText.Length, SeekOrigin.Current);
-
-
-
-                        // Check File Footer or not
-                        if (this.checkFileFooter(inputStream)) { return; }
-
-
-                        
-                        // set buffer size (to read JBIG image data)
-                        buffer = new byte[this.bufsize];
 
                         // get and set temporary file name
                         this.outputFileNames.Add(Path.GetTempFileName());
 
-                        // Open output stream
+                        // open Output Stream
                         using (FileStream outputStream =
                             new FileStream(this.outputFileNames[this.outputFileNames.Count - 1], FileMode.Append, FileAccess.Write, FileShare.Delete))
                         {
-                            int readCount = 0;
-
-
-                            // Read JBIG part
-                            while ((readCount = inputStream.Read(buffer, 0, bufsize)) > 0)
+                            // read byte
+                            while ((data = inputStream.ReadByte()) >= 0)
                             {
-                                int backCount = 0;
-                                for (int i = 0; i < buffer.Length; i++)
+                                // Check File Footer
+                                if (footPart.Count <= 0)
                                 {
-                                    // Check only 1st byte
-                                    if (buffer[i] == this.lineHeaderText[0])
+                                    if (data == this.fileFooterText[0])
                                     {
-                                        if (Encoding.ASCII.GetString(buffer, i, this.lineHeaderText.Length) == this.lineHeaderText)
+                                        // Enter Footer Part
+                                        footPart.Add((byte)data);
+                                    }
+                                }
+                                else
+                                {
+                                    // Length check
+                                    if (footPart.Count < this.fileFooterText.Length)
+                                    {
+                                        if (data == this.fileFooterText[footPart.Count])
                                         {
-                                            backCount = readCount - i;
-                                            break;
+                                            // Continue Footer Part
+                                            footPart.Add((byte)data);
+
+                                            // Reached to Footer
+                                            if (footPart.Count == this.fileFooterText.Length) { return; }
+                                        }
+                                        else
+                                        {
+                                            // Write buffer to Output Stream
+                                            outputStream.Write(footPart.ToArray(), 0, footPart.Count);
+
+                                            // Exit Footer Part
+                                            footPart.Clear();
+                                        }
+                                    }
+                                    else { throw new ApplicationException(); }
+                                }
+
+
+                                
+                                // Check Text Line Part
+                                if (textPart.Count <= 0)
+                                {
+                                    if (data == this.lineHeaderText[0])
+                                    {
+                                        // Enter Text Line Part
+                                        textPart.Add((byte)data);
+                                    }
+                                }
+                                else
+                                {
+                                    // Length check
+                                    if (textPart.Count < this.lineHeaderText.Length)
+                                    {
+                                        if (data == this.lineHeaderText[textPart.Count])
+                                        {
+                                            // Continue Text Line Part
+                                            textPart.Add((byte)data);
+                                        }
+                                        else
+                                        {
+                                            // Write buffer to Output Stream
+                                            outputStream.Write(textPart.ToArray(), 0, textPart.Count);
+
+                                            // Exit Text Line Part
+                                            textPart.Clear();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if ((data == '\r') || (data == '\n') || ((data >= 0x20) || (data <= 0x7e)))
+                                        {
+                                            // Continue Text Line Part
+                                            textPart.Add((byte)data);
+
+                                            if ((textPart.Count > 2) && (textPart[textPart.Count - 2] == '\r') && (textPart[textPart.Count - 1] == '\n'))
+                                            {
+                                                // Increment Text Line Count, and Check Page Break
+                                                if (!pageHead && ((++lineCount) > this.removableLineCount)) { break; }
+
+                                                // Clear buffer and Continue
+                                                textPart.Clear();
+                                                continue;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // Write buffer to Output Stream
+                                            outputStream.Write(textPart.ToArray(), 0, textPart.Count);
+
+                                            // Exit Text Line Part
+                                            textPart.Clear();
                                         }
                                     }
                                 }
 
-                                // write to output stream
-                                outputStream.Write(buffer, 0, readCount - backCount);
 
-                                // Next Fragment
-                                if (backCount > 0)
+
+                                // Check Binary Data
+                                if ((footPart.Count <= 0) && (textPart.Count <= 0))
                                 {
-                                    // back current position of input stream
-                                    inputStream.Seek(-backCount, SeekOrigin.Current);
+                                    // write data to Output Stream
+                                    outputStream.WriteByte((byte)data);
 
-                                    break;
+                                    // Exit Header Part
+                                    pageHead = false;
+
+                                    // Clear Text Line Count
+                                    lineCount = 0;
                                 }
                             }
                         }
@@ -170,34 +227,6 @@ namespace BUILDLet.JbigViewer
                 this.outputFileNames.Clear();
             }
             catch (Exception e) { throw e; }
-        }
-
-
-        private bool readFileHeader(Stream stream)
-        {
-            // set buffer size (to read FILE Header)
-            byte[] buffer = new byte[this.fileHeaderText.Length];
-
-            // (Validate) Read and Check the file header
-            return (
-                (stream.Read(buffer, 0, this.fileHeaderText.Length) == this.fileHeaderText.Length) &&
-                (ASCIIEncoding.ASCII.GetString(buffer) == this.fileHeaderText));
-        }
-
-
-        private bool checkFileFooter(Stream stream)
-        {
-            // set buffer size (to read FILE Footer)
-            byte[] buffer = new byte[this.fileFooterText.Length];
-
-            // (Validate) Read and Check the file header
-            bool result = 
-                (stream.Read(buffer, 0, this.fileFooterText.Length) == this.fileFooterText.Length) &&
-                (ASCIIEncoding.ASCII.GetString(buffer) == this.fileFooterText);
-
-            stream.Seek(-this.fileFooterText.Length, SeekOrigin.Current);
-
-            return result;
         }
     }
 }

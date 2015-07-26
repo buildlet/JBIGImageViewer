@@ -61,7 +61,7 @@ namespace BUILDLet.Imaging.Properties {
         }
         
         /// <summary>
-        ///   {0} の実行時にエラーが発生しました。 に類似しているローカライズされた文字列を検索します。
+        ///   Failed to run {0}. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ApplicationErrorMessageTemplate {
             get {
