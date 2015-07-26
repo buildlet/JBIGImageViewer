@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\BUILDLet_JbigViewer.ico</ApplicationIcon>
+    <ApplicationIcon>BUILDLet_JbigViewer.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BUILDLet.Utilities, Version=1.1.5632.37273, Culture=neutral, processorArchitecture=MSIL">
@@ -87,7 +87,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindow_commands.cs" />
+    <Compile Include="MainWindow.commands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,6 +133,7 @@
     <Content Include="BUILDLet.Utilities.WPF.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="BUILDLet_JbigViewer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

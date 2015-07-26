@@ -187,7 +187,7 @@ namespace BUILDLet.JbigViewer
                     VersionInformationWindow.LogoImageHeight).ToBitmap();
 
                 // Show Dialog
-                new VersionInformationWindow(logo, ImageFormat.Bmp).ShowDialog();
+                new VersionInformationWindow(logo, ImageFormat.Png, this).ShowDialog();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, App.Name, MessageBoxButton.OK, MessageBoxImage.Error); }
         }
@@ -266,18 +266,28 @@ namespace BUILDLet.JbigViewer
 
 
         // (TextBox) Page Number is updated.
-        private void PageNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void PageNumberTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-            int page;
-            if (int.TryParse(this.PageNumberTextBox.Text, out page) && (this.PageNumberTextBox.Text != this.currentPage.ToString()))
+            if (e.Key == Key.Enter)
             {
                 try
                 {
-                    // Show Page
-                    this.showPage(page);
+                    // Update Page Number TextBox
+                    this.updatePageNumberTextBox();
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message, App.Name, MessageBoxButton.OK, MessageBoxImage.Error); }
             }
+        }
+
+        // (TextBox) Lost Focus
+        private void PageNumberTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Update Page Number TextBox
+                this.updatePageNumberTextBox();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, App.Name, MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
 
