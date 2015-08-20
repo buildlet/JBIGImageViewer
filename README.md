@@ -1,7 +1,7 @@
 JbigViewer
 ==========
 
-JBIG Image Viewer Version **1.1.0.0**
+JBIG Image Viewer Version **1.1.1.0**
 
 
 概要
@@ -60,6 +60,10 @@ NetPbm for Windows のソースコードは下記の URL からダウンロー�
 
 変更履歴
 --------
+### Version 1.1.1.0
+**2015/08/13**  
+デスクトップ ショートカットのファイル名を変更。  
+
 ### Version 1.1.0.0
 **2015/07/26**  
 テキスト除去とページ分割処理を見直し。  
