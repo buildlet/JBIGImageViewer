@@ -2,14 +2,16 @@
 <Include>
 
   <!-- Version Information -->
-  <?define Version="1.1.0"?>
+  <?define Version="1.2.0"?>
 
   
   <!-- Product Information -->
   <?define JBIGView_ProductName="BUILDLet JBIG Image Viewer"?>
   <?define JBIGView_ProductComment="BUILDLet JBIG Image Viewer"?>
   <?define JBIGView_ProductFolderName="BUILDLet JBIG Image Viewer"?>
-  <?define JBIGView_NickName="JbigView"?>
+  
+  <!-- [Version 1.1.1.0] Change from "JbigView" into "JBIG Viewer" for Desktop Shortcut Name -->
+  <?define JBIGView_NickName="JBIG Viewer"?>
   
   
   <!-- Resource Files -->

@@ -76,11 +76,134 @@ namespace BUILDLet.JbigViewer
         }
 
 
-        // KeyDown Event Handler
+        private double scrollStartPositionX = 0;
+        private double scrollStartPositionY = 0;
+        
+        // private bool zoomMode = false;  // removed at Version 1.2.0.0
+
+
+        // (Window) KeyDown Event Handler
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape) { this.Close(); }
+            // Escape (Close)
+            // V1.1.2.0  Commented out
+            // if (e.Key == Key.Escape) { this.Close(); }
+
+
+            // Zoom in/out
+            if ((Keyboard.Modifiers == ModifierKeys.Control) && (this.currentPage > 0))
+            {
+                // Zoom In
+                if (e.Key == Key.Add)
+                {
+                    this.zoomIn();
+                }
+
+                // Zoom Out
+                if (e.Key == Key.Subtract)
+                {
+                    this.zoomOut();
+                }
+            }
+
+
+            // Version 1.2.0.0
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (e.Key == Key.O) { this.OpenMenuItem_Click(this, null); }
+
+                if (this.currentPage > 0)
+                {
+                    if (e.Key == Key.S) { this.SaveAsMenuItem_Click(this, null); }
+                    if (e.Key == Key.C) { this.CloseMenuItem_Click(this, null); }
+
+                    if (e.Key == Key.Right) { this.NextPageMenuItem_Click(this, null); }
+                    if (e.Key == Key.Left) { this.PreviousPageMenuItem_Click(this, null); }
+                }
+            }
         }
+
+
+        //// (Window) KeyUp Event Handler
+        //private void Window_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    if ((e.Key == Key.LeftCtrl) || (e.Key == Key.RightCtrl))
+        //    {
+        //        // Exit Zoom Mode
+        //        this.zoomMode = false;
+        //    }
+        //}
+
+
+        // (Image) MouseLeftButtonDown Event Handler
+        private void MainImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Change Mouse Cursor
+            Mouse.OverrideCursor = Cursors.Hand;
+
+            // Store start position
+            this.scrollStartPositionX = e.GetPosition(this.MainView).X;
+            this.scrollStartPositionY = e.GetPosition(this.MainView).Y;
+        }
+
+
+        // (MainView) MouseLeftButtonUp Event Handler
+        private void MainView_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                if (Mouse.OverrideCursor == Cursors.Hand)
+                {
+                    // Revert Mouse Cursor
+                    Mouse.OverrideCursor = null;
+                }
+            }
+        }
+
+        // (MainView) MouseLeave Event Handler
+        private void MainView_MouseLeave(object sender, MouseEventArgs e)
+        {
+            // Revert Mouse Cursor
+            Mouse.OverrideCursor = null;
+
+            // Exit Zoom Mode
+            //this.zoomMode = false;
+        }
+
+
+        // (MainView) MouseMove Event Handler
+        private void MainView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Mouse.OverrideCursor == Cursors.Hand)
+            {
+                // Scroll
+                this.MainView.ScrollToHorizontalOffset(this.MainView.ContentHorizontalOffset + (this.scrollStartPositionX - e.GetPosition(this.MainView).X));
+                this.MainView.ScrollToVerticalOffset(this.MainView.ContentVerticalOffset + (this.scrollStartPositionY - e.GetPosition(this.MainView).Y));
+
+                // Store start position
+                this.scrollStartPositionX = e.GetPosition(this.MainView).X;
+                this.scrollStartPositionY = e.GetPosition(this.MainView).Y;
+            }
+        }
+
+
+        // (Image) MouseWheel Event Handler
+        private void MainImage_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if ((Keyboard.Modifiers == ModifierKeys.Control) && (this.currentPage > 0))
+            {
+                // Zoom retio
+                double ratio = (e.Delta + this.MainImage.ActualHeight) / this.MainImage.ActualHeight;
+
+                // current Mouse position
+                double x = e.GetPosition(this.MainView).X;
+                double y = e.GetPosition(this.MainView).Y;
+
+                // Zoom In/Out
+                this.zoom(ratio, x, y);
+            }
+        }
+
 
 
         // (Menu) File Open
@@ -220,24 +343,50 @@ namespace BUILDLet.JbigViewer
         // (Menu) RemoveUnexpectedData Menu is Checked or Unchecked.
         private void RemoveUnexpectedDataMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            // Store current status of RemoveUnexpectedDataMenuItem.IsChecked
-            Properties.Settings.Default.RemoveUnexpectedDataStatus = this.RemoveUnexpectedDataMenuItem.IsChecked;
+            // Store current status of RemoveUnexpectedDataMenuItem.IsChecked or RemoveUnexpectedDataContextMenuItem.IsChecked
+            Properties.Settings.Default.RemoveUnexpectedDataStatus = ((MenuItem)e.OriginalSource).IsChecked;
+
+            // update status
+            this.updateStatus();
         }
 
 
         // (Menu) SameAsOriginalImageSize Menu is Checked or Unchecked.
         private void SameAsOriginalImageSizeMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (this.SameAsOriginalImageSizeMenuItem.IsChecked)
+            // Set current status of this.sameAsOriginalImageSize
+            this.sameAsOriginalImageSize = ((MenuItem)e.OriginalSource).IsChecked;
+
+
+            if (this.sameAsOriginalImageSize)
             {
-                this.MainView.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 this.MainImage.Stretch = Stretch.None;
+
+                this.MainImage.Width = this.MainImage.Source.Width;
+                this.MainImage.Height = this.MainImage.Source.Height;
             }
             else
             {
-                this.MainView.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                this.MainImage.Stretch = Stretch.UniformToFill;
-            }            
+                this.MainImage.Stretch = Stretch.Uniform;
+            }
+
+
+            // update status
+            this.updateStatus();
+        }
+
+
+        // (Menu) ZoomInMenuItem Click Event Handler
+        private void ZoomInMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.zoomIn();
+        }
+
+
+        // (Menu) ZoomOutMenuItem Click Event Handler
+        private void ZoomOutMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.zoomOut();
         }
 
 
@@ -276,6 +425,14 @@ namespace BUILDLet.JbigViewer
                     this.updatePageNumberTextBox();
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message, App.Name, MessageBoxButton.OK, MessageBoxImage.Error); }
+            }
+
+
+            // Version 1.2.0.0
+            if ((Keyboard.Modifiers == ModifierKeys.Control) && (this.currentPage > 0))
+            {
+                if (e.Key == Key.Right) { this.NextPageMenuItem_Click(this, null); }
+                if (e.Key == Key.Left) { this.PreviousPageMenuItem_Click(this, null); }
             }
         }
 

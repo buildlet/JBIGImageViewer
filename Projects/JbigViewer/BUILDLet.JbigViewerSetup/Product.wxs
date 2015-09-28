@@ -24,6 +24,10 @@
   <?define GUID_Documents="$(var.GUID_JBIGView_Documents)"?>
   <?define GUID_Configuration="$(var.GUID_JBIGView_Configuration)"?>  <!-- Not used for Version 1.0.0 -->
   <?define GUID_ProgramMenu="$(var.GUID_JBIGView_ProgramMenu)"?>
+  
+  <!-- [Version 1.1.1.0] for Backword Compatibility (to remove Desktop Shortcut File) -->
+  <?define GUID_OldProductComponent="$(var.GUID_JBIGView_OldProductComponent)"?>
+  <?define OldDesktopShortcutFileName="BUILDLet JBIG Image Viewer.lnk"?>
 
   <!-- Source Files (Common) -->
   <?define Source_ReadmeFile="$(var.Resource_ReadmeFile_JBIGView)"?>
@@ -136,7 +140,7 @@
 
           <!-- Desktop Shortcut -->
           <Shortcut Id="DesktopShortcut" 
-                    Name="$(var.ProductName)" 
+                    Name="$(var.NickName)" 
                     Description="$(var.ProductName) $(var.Version)"
                     Directory="DesktopFolder" 
                     WorkingDirectory="INSTALLDIR"
@@ -189,6 +193,12 @@
       <Component Id="Documents" Guid="$(var.GUID_Documents)" KeyPath="yes">
         <File Source="$(var.Source_ReadmeFile)" />
         <File Source="$(var.Source_LicenseFile)" />
+      </Component>
+
+      
+      <!-- Old Desktop Shortcut File ("BUILDLet JBIG Image Viewer") to be deleted -->
+      <Component Id="OldDesktopShortcutFile" Guid="$(var.GUID_OldProductComponent)" KeyPath="yes">
+        <RemoveFile Id="OldDesktopShortcutFile" On="both" Name="$(var.OldDesktopShortcutFileName)" Directory="DesktopFolder" />
       </Component>
 
     </ComponentGroup>

@@ -80,7 +80,7 @@
     <PreBuildEvent>REM @ECHO OFF
 
 REM ##### JBIG-KIT #####
-SET REDIST_DIRECTORY=$(SolutionDir)..\..\Redist\GnuWin\JbigKit\
+SET REDIST_DIRECTORY=$(SolutionDir)..\Common\Redist\GnuWin\JbigKit\
 
 SET REDIST_FILE=jbig1.dll
 ECHO [IMPORT] %25REDIST_FILE%25 -^&gt; $(ProjectDir)
@@ -92,7 +92,7 @@ COPY "%25REDIST_DIRECTORY%25%25REDIST_FILE%25" "$(ProjectDir)"
 
 
 REM ##### NetPbm #####
-SET REDIST_DIRECTORY=$(SolutionDir)..\..\Redist\GnuWin\NetPbm\
+SET REDIST_DIRECTORY=$(SolutionDir)..\Common\Redist\GnuWin\NetPbm\
 
 SET REDIST_FILE=libnetpbm10.dll
 ECHO [IMPORT] %25REDIST_FILE%25 -^&gt; $(ProjectDir)

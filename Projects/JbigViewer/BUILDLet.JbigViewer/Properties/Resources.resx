@@ -161,9 +161,15 @@
     <value>_Same as original image size (100%)</value>
   </data>
   <data name="SaveAsMenuItemHeader" xml:space="preserve">
-    <value>Save _as</value>
+    <value>_Save as</value>
   </data>
   <data name="ViewMenuItemHeader" xml:space="preserve">
     <value>_View</value>
+  </data>
+  <data name="ZoomInMenuItemHeader" xml:space="preserve">
+    <value>_Zoom In</value>
+  </data>
+  <data name="ZoomOutMenuItemHeader" xml:space="preserve">
+    <value>Zoo_m Out</value>
   </data>
 </root>

@@ -58,6 +58,12 @@ namespace BUILDLet.JbigViewer
         }
 
 
+        public int Pages
+        {
+            get { return this.FileNames.Length; }
+        }
+
+
         public JbigFragments(string filename)
         {
             this.inputFileName = filename;
