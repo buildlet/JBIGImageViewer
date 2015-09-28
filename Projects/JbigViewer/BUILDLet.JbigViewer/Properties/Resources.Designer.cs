@@ -188,7 +188,7 @@ namespace BUILDLet.JbigViewer.Properties {
         }
         
         /// <summary>
-        ///   Save _as に類似しているローカライズされた文字列を検索します。
+        ///   _Save as に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SaveAsMenuItemHeader {
             get {
@@ -202,6 +202,24 @@ namespace BUILDLet.JbigViewer.Properties {
         public static string ViewMenuItemHeader {
             get {
                 return ResourceManager.GetString("ViewMenuItemHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   _Zoom In に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ZoomInMenuItemHeader {
+            get {
+                return ResourceManager.GetString("ZoomInMenuItemHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Zoo_m Out に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ZoomOutMenuItemHeader {
+            get {
+                return ResourceManager.GetString("ZoomOutMenuItemHeader", resourceCulture);
             }
         }
     }

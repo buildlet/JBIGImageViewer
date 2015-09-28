@@ -56,7 +56,13 @@ namespace BUILDLet.JbigViewer
         private Dictionary<int, string> bitmapFileNames = new Dictionary<int, string>();
 
         private string sourceFileName = string.Empty;
-        private int currentPage = -1;
+        private int currentPage = 0;
+
+        private bool sameAsOriginalImageSize = false;
+
+        private double minImageWidth = 100;
+        private double maxImageWidth = 200 * 500;
+        private double defaultImageWidth = 390;
 
 
         // Show Image
@@ -65,7 +71,7 @@ namespace BUILDLet.JbigViewer
             // Validate
             if (this.innerJbigData != null)
             {
-                if ((page < 1) || (page > this.innerJbigData.FileNames.Length)) { throw new ApplicationException(); }
+                if ((page < 1) || (page > this.innerJbigData.Pages)) { throw new ApplicationException(); }
             }
 
             // Disable Button(s)
@@ -105,6 +111,16 @@ namespace BUILDLet.JbigViewer
 
                 // Set ImageSource
                 this.MainImage.Source = image;
+                this.MainImage.MinWidth = this.minImageWidth;
+                this.MainImage.MaxWidth = this.maxImageWidth;
+
+                // Set default Image Width
+                this.MainImage.Width = this.defaultImageWidth;
+                this.MainImage.Height = this.defaultImageWidth * (this.MainImage.Source.Height / this.MainImage.Source.Width);
+
+                // Unlock SameAsOriginalImageSize
+                this.unlockSameAsOriginalImageSize();
+
 
                 // set current page number
                 this.currentPage = page;
@@ -150,7 +166,7 @@ namespace BUILDLet.JbigViewer
         // Show Page
         private void showPage(int page)
         {
-            if ((page != this.currentPage) && (page > 0) && (this.innerJbigData != null) && (page <= this.innerJbigData.FileNames.Length))
+            if ((page != this.currentPage) && (page > 0) && (this.innerJbigData != null) && (page <= this.innerJbigData.Pages))
             {
                 // Clear ImageSource
                 this.MainImage.Source = null;
@@ -169,7 +185,7 @@ namespace BUILDLet.JbigViewer
         // Show Next Page
         private void showNextPage()
         {
-            if ((this.currentPage > 0) && (this.currentPage < this.innerJbigData.FileNames.Length))
+            if ((this.currentPage > 0) && (this.innerJbigData != null) && (this.currentPage < this.innerJbigData.Pages))
             {
                 // Clear ImageSource
                 this.MainImage.Source = null;
@@ -188,7 +204,7 @@ namespace BUILDLet.JbigViewer
         // Show Previous Page
         private void showPreviousPage()
         {
-            if ((this.currentPage > 1) && (this.currentPage <= this.innerJbigData.FileNames.Length))
+            if ((this.currentPage > 1) && (this.innerJbigData != null) && (this.currentPage <= this.innerJbigData.Pages))
             {
                 // Clear ImageSource
                 this.MainImage.Source = null;
@@ -280,6 +296,64 @@ namespace BUILDLet.JbigViewer
         }
 
 
+        // Unlock SameAsOriginalImageSize
+        private void unlockSameAsOriginalImageSize()
+        {
+            // Set current status of this.sameAsOriginalImageSize
+            this.sameAsOriginalImageSize = false;
+
+            // Set Image Stretch
+            this.MainImage.Stretch = Stretch.Uniform;
+
+            // update status
+            this.updateStatus();
+        }
+
+
+        // Zoom In/Out function
+        private void zoom(double zoomRatio) { this.zoom(zoomRatio, 0, 0); }
+
+        private void zoom(double zoomRatio, double x, double y)
+        {
+            if (((this.MainImage.ActualWidth * zoomRatio) > this.minImageWidth) && ((this.MainImage.ActualWidth * zoomRatio) < this.maxImageWidth))
+            {
+                // Unlock this.sameAsOriginalImageSize
+                this.unlockSameAsOriginalImageSize();
+
+
+                // Store start position
+                double offsetX = this.MainView.HorizontalOffset;
+                double offsetY = this.MainView.VerticalOffset;
+
+
+                // Zoom In/Out
+                this.MainImage.Width = this.MainImage.ActualWidth * zoomRatio;
+                this.MainImage.Height = this.MainImage.ActualHeight * zoomRatio;
+
+
+                // Restore position
+                this.MainView.ScrollToHorizontalOffset(offsetX * zoomRatio);
+                this.MainView.ScrollToVerticalOffset(offsetY * zoomRatio);
+            }
+
+
+            // update status
+            this.updateStatus();
+        }
+
+
+        // Zoom In function (by MenuItem Click)
+        private void zoomIn()
+        {
+            this.zoom(1.2);
+        }
+
+        // Zoom Out function (by MenuItem Click)
+        private void zoomOut()
+        {
+            this.zoom(0.8);
+        }
+
 
         // Update Status
         private void updateStatus()
@@ -295,51 +369,89 @@ namespace BUILDLet.JbigViewer
             }
 
 
-            // Menu
-            if (this.currentPage > 0)
-            {
-                this.SaveAsMenuItem.IsEnabled = true;
-                this.CloseMenuItem.IsEnabled = true;
-                this.SameAsOriginalImageSizeMenuItem.IsEnabled = true;
-                this.RemoveUnexpectedDataMenuItem.IsEnabled = false;
-            }
-            else
-            {
-                this.SaveAsMenuItem.IsEnabled = false;
-                this.CloseMenuItem.IsEnabled = false;
-                this.SameAsOriginalImageSizeMenuItem.IsEnabled = false;
-                this.RemoveUnexpectedDataMenuItem.IsEnabled = true;
-            }
-
-
             // Previous Page
             if (this.currentPage > 1)
             {
                 this.PreviousPageMenuItem.IsEnabled = true;
+                this.PreviousPageContextMenuItem.IsEnabled = true;
+
                 this.LeftButton.IsEnabled = true;
                 this.LeftArrowPolygon.Fill = new SolidColorBrush(Colors.DimGray);
             }
             else
             {
                 this.PreviousPageMenuItem.IsEnabled = false;
+                this.PreviousPageContextMenuItem.IsEnabled = false;
+
                 this.LeftButton.IsEnabled = false;
                 this.LeftArrowPolygon.Fill = new SolidColorBrush(Colors.LightGray);
             }
 
-
             // Next Page
-            if ((this.currentPage > 0) && (this.innerJbigData != null) && (this.currentPage < this.innerJbigData.FileNames.Length))
+            if ((this.currentPage > 0) && (this.innerJbigData != null) && (this.currentPage < this.innerJbigData.Pages))
             {
                 this.NextPageMenuItem.IsEnabled = true;
+                this.NextPageContextMenuItem.IsEnabled = true;
+
                 this.RightButton.IsEnabled = true;
                 this.RightArrowPolygon.Fill = new SolidColorBrush(Colors.DimGray);
             }
             else
             {
                 this.NextPageMenuItem.IsEnabled = false;
+                this.NextPageContextMenuItem.IsEnabled = false;
+
                 this.RightButton.IsEnabled = false;
                 this.RightArrowPolygon.Fill = new SolidColorBrush(Colors.LightGray);
             }
+
+
+            // Menu & Context Menu
+            if (this.currentPage > 0)
+            {
+                // Menu
+                this.SaveAsMenuItem.IsEnabled = true;
+                this.CloseMenuItem.IsEnabled = true;
+                this.ZoomInMenuItem.IsEnabled = true;
+                this.ZoomOutMenuItem.IsEnabled = true;
+                this.SameAsOriginalImageSizeMenuItem.IsEnabled = true;
+                this.RemoveUnexpectedDataMenuItem.IsEnabled = false;
+
+                // Context Menu
+                this.SaveAsContextMenuItem.IsEnabled = true;
+                this.CloseContextMenuItem.IsEnabled = true;
+                this.ZoomInContextMenuItem.IsEnabled = true;
+                this.ZoomOutContextMenuItem.IsEnabled = true;
+                this.SameAsOriginalImageSizeContextMenuItem.IsEnabled = true;
+                this.RemoveUnexpectedDataContextMenuItem.IsEnabled = false;
+            }
+            else
+            {
+                // Menu
+                this.SaveAsMenuItem.IsEnabled = false;
+                this.CloseMenuItem.IsEnabled = false;
+                this.ZoomInMenuItem.IsEnabled = false;
+                this.ZoomOutMenuItem.IsEnabled = false;
+                this.SameAsOriginalImageSizeMenuItem.IsEnabled = false;
+                this.RemoveUnexpectedDataMenuItem.IsEnabled = true;
+
+                // Context Menu
+                this.SaveAsContextMenuItem.IsEnabled = false;
+                this.CloseContextMenuItem.IsEnabled = false;
+                this.ZoomInContextMenuItem.IsEnabled = false;
+                this.ZoomOutContextMenuItem.IsEnabled = false;
+                this.SameAsOriginalImageSizeContextMenuItem.IsEnabled = false;
+                this.RemoveUnexpectedDataContextMenuItem.IsEnabled = true;
+            }
+
+
+            // RemoveUnexpectedData (Menu and ContextMenu)
+            this.RemoveUnexpectedDataMenuItem.IsChecked = Properties.Settings.Default.RemoveUnexpectedDataStatus;
+            this.RemoveUnexpectedDataContextMenuItem.IsChecked = Properties.Settings.Default.RemoveUnexpectedDataStatus;
+
+            // this.sameAsOriginalImageSize
+            this.SameAsOriginalImageSizeMenuItem.IsChecked = this.sameAsOriginalImageSize;
+            this.SameAsOriginalImageSizeContextMenuItem.IsChecked = this.sameAsOriginalImageSize;
         }
     }
 }

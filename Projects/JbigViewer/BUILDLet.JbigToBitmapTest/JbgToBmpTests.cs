@@ -44,7 +44,7 @@ namespace BUILDLet.Imaging.Tests
             // Show Message
             MessageBox.Show("Please delete the temporary bitmap image file(s).", "JbgToBmpTest");
 
-            foreach (var jbigfile in Directory.GetFiles(@"..\..\..\..\Common\TestData\jbigkit-1.6\examples", "*.jbg", SearchOption.TopDirectoryOnly))
+            foreach (var jbigfile in Directory.GetFiles(@"..\..\..\..\Common\TestData\JbigViewer\jbigkit-1.6\examples", "*.jbg", SearchOption.TopDirectoryOnly))
             {
                 string bitmap = JbigToBitmap.Convert(jbigfile);
                 File.Move(bitmap, (bitmap = bitmap + ".bmp"));

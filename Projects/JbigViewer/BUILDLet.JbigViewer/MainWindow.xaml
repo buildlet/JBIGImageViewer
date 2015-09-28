@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:app="clr-namespace:BUILDLet.JbigViewer"
         xmlns:prop="clr-namespace:BUILDLet.JbigViewer.Properties"
-        Title="{x:Static app:App.Name}" Height="600" Width="425" KeyDown="Window_KeyDown" AllowDrop="True" Drop="Window_Drop" Closing="Window_Closing">
+        Title="{x:Static app:App.Name}" Height="600" Width="425" AllowDrop="True" Drop="Window_Drop" Closing="Window_Closing" KeyDown="Window_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -13,18 +13,20 @@
 
         <Menu Grid.Row="0">
             <MenuItem Name="FileMenuItem" Header="{x:Static prop:Resources.FileMenuItemHeader}">
-                <MenuItem Name="OpenMenuItem" Header="{x:Static prop:Resources.OpenMenuItemHeader}" Click="OpenMenuItem_Click" />
-                <MenuItem Name="SaveAsMenuItem" Header="{x:Static prop:Resources.SaveAsMenuItemHeader}" Click="SaveAsMenuItem_Click" />
-                <MenuItem Name="CloseMenuItem" Header="{x:Static prop:Resources.CloseMenuItemHeader}" Click="CloseMenuItem_Click" />
+                <MenuItem Name="OpenMenuItem" Header="{x:Static prop:Resources.OpenMenuItemHeader}" InputGestureText="Ctrl+O" Click="OpenMenuItem_Click" />
+                <MenuItem Name="SaveAsMenuItem" Header="{x:Static prop:Resources.SaveAsMenuItemHeader}" InputGestureText="Ctrl+S" Click="SaveAsMenuItem_Click" />
+                <MenuItem Name="CloseMenuItem" Header="{x:Static prop:Resources.CloseMenuItemHeader}" InputGestureText="Ctrl+C" Click="CloseMenuItem_Click" />
                 <Separator />
-                <MenuItem Name="ExitMenuItem" Header="{x:Static prop:Resources.ExitMenuItemHeader}" Click="ExitMenuItem_Click" />
-            </MenuItem>
-            <MenuItem Name="ImageMenuItem" Header="{x:Static prop:Resources.ImageMenuItemHeader}">
                 <MenuItem Name="RemoveUnexpectedDataMenuItem" Header="{x:Static prop:Resources.RemoveUnexpectedDataMenuItemHeader}" IsCheckable="True" Click="RemoveUnexpectedDataMenuItem_Click" />
+                <Separator />
+                <MenuItem Name="ExitMenuItem" Header="{x:Static prop:Resources.ExitMenuItemHeader}" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" />
             </MenuItem>
             <MenuItem Name="ViewMenuItem" Header="{x:Static prop:Resources.ViewMenuItemHeader}">
-                <MenuItem Name="NextPageMenuItem" Header="{x:Static prop:Resources.NextPageMenuItemHeader}" Click="NextPageMenuItem_Click" />
-                <MenuItem Name="PreviousPageMenuItem" Header="{x:Static prop:Resources.PreviousPageMenuItemHeader}" Click="PreviousPageMenuItem_Click" />
+                <MenuItem Name="NextPageMenuItem" Header="{x:Static prop:Resources.NextPageMenuItemHeader}" InputGestureText="Ctrl+Right" Click="NextPageMenuItem_Click" />
+                <MenuItem Name="PreviousPageMenuItem" Header="{x:Static prop:Resources.PreviousPageMenuItemHeader}" InputGestureText="Ctrl+Left" Click="PreviousPageMenuItem_Click" />
+                <Separator />
+                <MenuItem Name="ZoomInMenuItem" Header="{x:Static prop:Resources.ZoomInMenuItemHeader}" InputGestureText="Ctrl +" Click="ZoomInMenuItem_Click" />
+                <MenuItem Name="ZoomOutMenuItem" Header="{x:Static prop:Resources.ZoomOutMenuItemHeader}" InputGestureText="Ctrl -" Click="ZoomOutMenuItem_Click" />
                 <Separator />
                 <MenuItem Name="SameAsOriginalImageSizeMenuItem" Header="{x:Static prop:Resources.SameAsOriginalImageSizeMenuItemHeader}" IsCheckable="True" Click="SameAsOriginalImageSizeMenuItem_Click" />
             </MenuItem>
@@ -33,8 +35,29 @@
             </MenuItem>
         </Menu>
 
-        <ScrollViewer Name="MainView" Grid.Row="1" Background="LightGray">
-            <Image Name="MainImage" />
+        <ScrollViewer Name="MainView" Grid.Row="1" Background="LightGray" 
+                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      MouseUp="MainView_MouseUp" MouseMove="MainView_MouseMove" MouseLeave="MainView_MouseLeave">
+            <Image Name="MainImage" MouseLeftButtonDown="MainImage_MouseLeftButtonDown" MouseWheel="MainImage_MouseWheel" />
+            <ScrollViewer.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="OpenContextMenuItem" Header="{x:Static prop:Resources.OpenMenuItemHeader}" InputGestureText="Ctrl+O" Click="OpenMenuItem_Click" />
+                    <MenuItem Name="SaveAsContextMenuItem" Header="{x:Static prop:Resources.SaveAsMenuItemHeader}" InputGestureText="Ctrl+S" Click="SaveAsMenuItem_Click" />
+                    <MenuItem Name="CloseContextMenuItem" Header="{x:Static prop:Resources.CloseMenuItemHeader}" InputGestureText="Ctrl+C" Click="CloseMenuItem_Click" />
+                    <Separator />
+                    <MenuItem Name="RemoveUnexpectedDataContextMenuItem" Header="{x:Static prop:Resources.RemoveUnexpectedDataMenuItemHeader}" IsCheckable="True" Click="RemoveUnexpectedDataMenuItem_Click" />
+                    <Separator />
+                    <MenuItem Name="ExitContextMenuItem" Header="{x:Static prop:Resources.ExitMenuItemHeader}" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" />
+                    <Separator />
+                    <MenuItem Name="NextPageContextMenuItem" Header="{x:Static prop:Resources.NextPageMenuItemHeader}" InputGestureText="Ctrl+Right" Click="NextPageMenuItem_Click" />
+                    <MenuItem Name="PreviousPageContextMenuItem" Header="{x:Static prop:Resources.PreviousPageMenuItemHeader}" InputGestureText="Ctrl+Left" Click="PreviousPageMenuItem_Click" />
+                    <Separator />
+                    <MenuItem Name="ZoomInContextMenuItem" Header="{x:Static prop:Resources.ZoomInMenuItemHeader}" InputGestureText="Ctrl +" Click="ZoomInMenuItem_Click" />
+                    <MenuItem Name="ZoomOutContextMenuItem" Header="{x:Static prop:Resources.ZoomOutMenuItemHeader}" InputGestureText="Ctrl -" Click="ZoomOutMenuItem_Click" />
+                    <Separator />
+                    <MenuItem Name="SameAsOriginalImageSizeContextMenuItem" Header="{x:Static prop:Resources.SameAsOriginalImageSizeMenuItemHeader}" IsCheckable="True" Click="SameAsOriginalImageSizeMenuItem_Click" />
+                </ContextMenu>
+            </ScrollViewer.ContextMenu>
         </ScrollViewer>
 
         <Grid Grid.Row="2">
