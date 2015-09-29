@@ -311,7 +311,7 @@ namespace BUILDLet.JbigViewer
 
 
         // Zoom In/Out function
-        private void zoom(double zoomRatio) { this.zoom(zoomRatio, 0, 0); }
+        private void zoom(double zoomRatio) { this.zoom(zoomRatio, -1, -1); }
 
         private void zoom(double zoomRatio, double x, double y)
         {
@@ -322,8 +322,10 @@ namespace BUILDLet.JbigViewer
 
 
                 // Store start position
-                double offsetX = this.MainView.HorizontalOffset;
-                double offsetY = this.MainView.VerticalOffset;
+                double startOffsetX = this.MainView.HorizontalOffset;
+                double startOffsetY = this.MainView.VerticalOffset;
+                double offsetX = ((x >= 0) ? x : (this.MainView.ViewportWidth / 2));
+                double offsetY = ((y >= 0) ? y : (this.MainView.ViewportHeight / 2));
 
 
                 // Zoom In/Out
@@ -331,9 +333,14 @@ namespace BUILDLet.JbigViewer
                 this.MainImage.Height = this.MainImage.ActualHeight * zoomRatio;
 
 
+                double targetOffsetX = ((startOffsetX + offsetX) * zoomRatio) - offsetX;
+                double targetOffsetY = ((startOffsetY + offsetY) * zoomRatio) - offsetY;
+                if (targetOffsetX < 0) { targetOffsetX = 0; }
+                if (targetOffsetY < 0) { targetOffsetY = 0; }
+
                 // Restore position
-                this.MainView.ScrollToHorizontalOffset(offsetX * zoomRatio);
-                this.MainView.ScrollToVerticalOffset(offsetY * zoomRatio);
+                this.MainView.ScrollToHorizontalOffset(targetOffsetX);
+                this.MainView.ScrollToVerticalOffset(targetOffsetY);
             }
 
 

@@ -193,7 +193,7 @@ namespace BUILDLet.JbigViewer
             if ((Keyboard.Modifiers == ModifierKeys.Control) && (this.currentPage > 0))
             {
                 // Zoom retio
-                double ratio = (e.Delta + this.MainImage.ActualHeight) / this.MainImage.ActualHeight;
+                double ratio = (e.Delta + this.MainView.ViewportHeight) / this.MainView.ViewportHeight;
 
                 // current Mouse position
                 double x = e.GetPosition(this.MainView).X;
