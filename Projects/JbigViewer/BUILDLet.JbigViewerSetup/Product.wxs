@@ -26,8 +26,12 @@
   <?define GUID_ProgramMenu="$(var.GUID_JBIGView_ProgramMenu)"?>
   
   <!-- [Version 1.1.1.0] for Backword Compatibility (to remove Desktop Shortcut File) -->
-  <?define GUID_OldProductComponent="$(var.GUID_JBIGView_OldProductComponent)"?>
-  <?define OldDesktopShortcutFileName="BUILDLet JBIG Image Viewer.lnk"?>
+  <?define GUID_OldProductComponent1="$(var.GUID_JBIGView_OldProductComponent1)"?>
+  <?define OldDesktopShortcutFileName1="BUILDLet JBIG Image Viewer.lnk"?>
+
+  <!-- [Version 1.2.2.0] for Backword Compatibility (to remove Desktop Shortcut File) -->
+  <?define GUID_OldProductComponent2="$(var.GUID_JBIGView_OldProductComponent2)"?>
+  <?define OldDesktopShortcutFileName2="JBIG Viewer.lnk"?>
 
   <!-- Source Files (Common) -->
   <?define Source_ReadmeFile="$(var.Resource_ReadmeFile_JBIGView)"?>
@@ -166,7 +170,7 @@
       </Component>
 
 
-      <!-- Library -->
+      <!-- Library (BUILDLet.Utilities) -->
       <Component Id="Library" Guid="$(var.GUID_ProductComponent_BUILDLet_Library)" KeyPath="yes">
         <File Source="$(var.Source_ProductComponent_BUILDLet_DLL1)" />
         <File Source="$(var.Source_ProductComponent_BUILDLet_DLL2)" />
@@ -196,9 +200,14 @@
       </Component>
 
       
-      <!-- Old Desktop Shortcut File ("BUILDLet JBIG Image Viewer") to be deleted -->
-      <Component Id="OldDesktopShortcutFile" Guid="$(var.GUID_OldProductComponent)" KeyPath="yes">
-        <RemoveFile Id="OldDesktopShortcutFile" On="both" Name="$(var.OldDesktopShortcutFileName)" Directory="DesktopFolder" />
+      <!-- Old Desktop Shortcut File 1 ("BUILDLet JBIG Image Viewer") to be deleted -->
+      <Component Id="OldDesktopShortcutFile1" Guid="$(var.GUID_OldProductComponent1)" KeyPath="yes">
+        <RemoveFile Id="OldDesktopShortcutFile1" On="both" Name="$(var.OldDesktopShortcutFileName1)" Directory="DesktopFolder" />
+      </Component>
+
+      <!-- Old Desktop Shortcut File 2 ("JBIG Viewer") to be deleted -->
+      <Component Id="OldDesktopShortcutFile2" Guid="$(var.GUID_OldProductComponent2)" KeyPath="yes">
+        <RemoveFile Id="OldDesktopShortcutFile2" On="both" Name="$(var.OldDesktopShortcutFileName2)" Directory="DesktopFolder" />
       </Component>
 
     </ComponentGroup>
