@@ -2,7 +2,7 @@
 <Include>
 
   <!-- Version Information -->
-  <?define Version="1.2.1"?>
+  <?define Version="1.2.2"?>
 
   
   <!-- Product Information -->
@@ -11,7 +11,8 @@
   <?define JBIGView_ProductFolderName="BUILDLet JBIG Image Viewer"?>
   
   <!-- [Version 1.1.1.0] Change from "JbigView" into "JBIG Viewer" for Desktop Shortcut Name -->
-  <?define JBIGView_NickName="JBIG Viewer"?>
+  <!-- [Version 1.2.2.0] Change from "JBIG Viewer" into "JBIG Image Viewer" for Desktop Shortcut Name -->
+  <?define JBIGView_NickName="JBIG Image Viewer"?>
   
   
   <!-- Resource Files -->
