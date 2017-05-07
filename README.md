@@ -69,13 +69,12 @@ NetPbm for Windows のソースコードは下記の URL からダウンロー�
 ### Version 2.2.1.0
 **2017/05/07**
 * 全てのモジュールを刷新しました。
-* ファイルの保存形式として、PNG, JPEG, GIF および TIFF をサポートし、デフォルトを PNG としました。
+* ファイルの保存形式として、PNG, JPEG, GIF および TIFF をサポートし、デフォルトを PNG としました。
 * BUILDLet JBIG Image Converter Library (BUILDLet.JBIG) の Help Documentation (API Reference) を追加しました。
 
 ### Version 1.2.2.0
 **2015/09/30**
 * デスクトップ ショートカットのファイル名を変更しました。
-
 
 ### Version 1.2.1.0
 **2015/09/29**  
