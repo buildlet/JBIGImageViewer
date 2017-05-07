@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <!-- BUILDLet JBIG Image Viewer -->
+  <?define JBIGImageViewer_ProductName="BUILDLet JBIG Image Viewer"?>
+  <?define JBIGImageViewer_ProductComment="BUILDLet JBIG Image Viewer"?>
+  <?define JBIGImageViewer_ProductFolderName="BUILDLet JBIG Image Viewer"?>
+  
+  <!-- [Version 1.1.1.0] Change from "JbigView" into "JBIG Viewer" for Desktop Shortcut Name -->
+  <!-- [Version 1.2.2.0] Change from "JBIG Viewer" into "JBIG Image Viewer" for Desktop Shortcut Name -->
+  <!-- Not Used:
+  <?define JBIGImageViewer_NickName="JBIG Image Viewer"?>
+  -->
+
+  <!-- Help Documentation (API Reference) -->
+  <?define JBIGImageViewer_HelpDocument_ProductName="BUILDLet JBIG Image Converter Documentation"?>
+  <?define JBIGImageViewer_HelpDocument_ProductDescription="BUILDLet JBIG Image Converter Library Help Documentation (API Reference)"?>
+
+</Include>

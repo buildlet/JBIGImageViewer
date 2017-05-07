@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+
+  <!-- Include -->
+  <?include ..\Properties\InstallerGUID.wxi?>
+  <?include ..\Properties\InstallerProductInfo.wxi?>
+  <?include ..\Properties\InstallerVersionInfo.wxi?>
+  <?include ..\Properties\InstallerResourceInfo.wxi?>
+
+  
+  <!-- GUID -->
+  <?define GUID_UpgradeCode="$(var.GUID_JBIGImageViewerSetupBootstrapper_UpgradeCode)"?>
+
+  
+  <!-- Product Information -->
+  <?define ProductName="$(var.JBIGImageViewer_ProductName)"?>
+
+  <!-- Source Files (Common) -->
+  <?define Source_LicenseFile="$(var.Resource_LicenseFile_RTF)"?>
+  <?define Source_LogoFile="$(var.Resource_LogoFile_JBIGImageViewerSetupBootstrapper)"?>
+
+  <!-- Source Files (.msi) -->
+  <?define Source_ProductComponent="$(var.Resource_JBIGImageViewerSetup)"?>
+
+  <!-- Launch Target -->
+  <?define LaunchTarget="[ProgramFilesFolder]$(var.JBIGImageViewer_ProductFolderName)\BUILDLet.JBIGImageViewer.exe"?>
+
+
+  <!-- Bundle -->
+  <Bundle Name="$(var.ProductName) $(var.Version)"
+          Version="$(var.Version)"
+          Manufacturer="$(var.Manufacturer)"
+          Copyright="$(var.Copyright)"
+          UpgradeCode="$(var.GUID_UpgradeCode)">
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLargeLicense">
+      <bal:WixStandardBootstrapperApplication LicenseFile="$(var.Source_LicenseFile)"
+                                              LogoFile="$(var.Source_LogoFile)"
+                                              ShowVersion="yes"
+                                              SuppressOptionsUI="yes"
+                                              LaunchTarget="$(var.LaunchTarget)" />
+    </BootstrapperApplicationRef>
+
+    <Chain>
+      <MsiPackage SourceFile="$(var.Source_ProductComponent)" />
+    </Chain>
+  </Bundle>
+</Wix>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <!-- Setup File (.msi) of BUILDLet PackageMaker Toolkit -->
+  <?define Resource_JBIGImageViewerSetup="..\bin\$(var.Configuration)\JBIGViewSetup.msi"?>
+
+
+  <!-- License Files (Common) -->
+  <?define Resource_LicenseFile_TXT="..\Resources\License\License.txt"?>
+  <?define Resource_LicenseFile_RTF="..\Resources\License\License.rtf"?>
+
+  <!-- License Files (Redist: JBIG-KIT) -->
+  <?define Resource_LicenseFile_Redist_JbigKit="..\Resources\License\jbigkit-1.6\jbigkit.txt"?>
+
+  <!-- License Files (Redist: Netpbm) -->
+  <?define Resource_LicenseFile_Redist_NetPbm="..\Resources\License\netpbm-10.27\netpbm.txt"?>
+
+
+  <!-- Logo Image Files -->
+  <?define Resource_LogoFile_JBIGImageViewerSetupBootstrapper="..\Resources\Logo\JBIGImageViewerSetupBootstrapper\BUILDLet.Logo_White-LightOrange_64x64.png"?>
+
+  <!-- Readme Files -->
+  <?define Resource_ReadmeFile_JBIGImageViewer="..\Resources\Readme\JBIGImageViewer\Readme.txt"?>
+
+
+  <!-- Icon Files (for Shortcut) -->
+  <!-- for WOL (from BUILDLet.JBIGImageViewer) -->
+  <?define Resource_IconFile_JBIGImageViewer="..\BUILDLet.JBIGImageViewer\Resources\BUILDLet_JBIGImageViewer.ico"?>
+  <!-- for Help File (.chm) -->
+  <?define Resource_IconFile_CHM="..\Resources\Icons\hh.ico"?>
+
+
+  <!-- Content Files -->
+  <?define Resource_JBIGView_EXE="..\bin\$(var.Configuration)\BUILDLet.JBIGImageViewer.exe"?>
+  <?define Resource_JBIG_DLL="..\bin\$(var.Configuration)\BUILDLet.JBIG.dll"?>
+  <?define Resource_JBIG_XML="..\bin\$(var.Configuration)\BUILDLet.JBIG.xml"?>
+  <?define Resource_JBIG_CHM="..\bin\$(var.Configuration)\BUILDLet.JBIG.chm"?>
+  <?define Resource_Utilities_DLL="..\bin\$(var.Configuration)\BUILDLet.Utilities.dll"?>
+  <?define Resource_Utilities_WPF_DLL="..\bin\$(var.Configuration)\BUILDLet.Utilities.WPF.dll"?>
+  <?define Resource_Redist_JbigKit_EXE="..\bin\$(var.Configuration)\jbgtopbm.exe"?>
+  <?define Resource_Redist_JbigKit_DLL="..\bin\$(var.Configuration)\jbig1.dll"?>
+  <?define Resource_Redist_NetPbm_EXE1="..\bin\$(var.Configuration)\pnmtopng.exe"?>
+  <?define Resource_Redist_NetPbm_EXE2="..\bin\$(var.Configuration)\pnmtotiff.exe"?>
+  <?define Resource_Redist_NetPbm_EXE3="..\bin\$(var.Configuration)\ppmtobmp.exe"?>
+  <?define Resource_Redist_NetPbm_EXE4="..\bin\$(var.Configuration)\ppmtogif.exe"?>
+  <?define Resource_Redist_NetPbm_EXE5="..\bin\$(var.Configuration)\ppmtojpeg.exe"?>
+  <?define Resource_Redist_NetPbm_DLL1="..\bin\$(var.Configuration)\jpeg62.dll"?>
+  <?define Resource_Redist_NetPbm_DLL2="..\bin\$(var.Configuration)\libnetpbm10.dll"?>
+  <?define Resource_Redist_NetPbm_DLL3="..\bin\$(var.Configuration)\libpng13.dll"?>
+  <?define Resource_Redist_NetPbm_DLL4="..\bin\$(var.Configuration)\libtiff3.dll"?>
+  <?define Resource_Redist_NetPbm_DLL5="..\bin\$(var.Configuration)\zlib1.dll"?>
+
+
+  <!-- Not Used: .NET Framework 4.5 (Redist)
+  <?define Redist_dotNetFx45_ja="..\..\..\Redist\Microsoft\ja\dotNetFx45_Full_setup.exe"?>
+  <?define Redist_dotNetFx45_en="..\..\..\Redist\Microsoft\en\dotNetFx45_Full_setup.exe"?>
+  -->
+  
+</Include>
