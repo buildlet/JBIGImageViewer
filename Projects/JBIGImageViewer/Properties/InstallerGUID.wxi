@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <!-- Upgrade Code of BUILDLet JBIG Image Viewer -->
+  <?define GUID_JBIGImageViewerSetupBootstrapper_UpgradeCode="{229069CA-7044-4D5F-8322-C964D4C31A02}"?>
+  <!-- Mistake in Version 1.x:
+        Upgrade GUID of SetupBootstrapper is the same as Product Upgrade GUID of Version 1.x.
+        Upgrade GUID of SetupBootstrapper for Version 1.x is NOT used.
+  <?define GUID_JBIGImageViewerSetupBootstrapper_UpgradeCode="{8E2640A9-5E7A-4146-89C8-93548563DEFB}"?>
+  -->
+
+
+  <!-- BUILDLet JBIG Image Viewer Version 2.x.x (Current) -->
+  <?define GUID_JBIGImageViewer_UpgradeCode="{EA614130-4FC1-4AA8-BF55-5D8CF554ABAF}"?>
+  <?define GUID_JBIGImageViewer_Product="{14C1F2C1-AAE6-447F-A866-FD6A53A4E3D9}"?>
+  <!-- (Components) -->
+  <?define GUID_JBIGImageViewer_ProductComponent="{CD9AE1D6-DE84-423A-9815-EA3A6D067013}"?>
+  <?define GUID_JBIGImageViewer_DocumentComponent="{6B72F6A3-5C1A-4F07-88AC-C0DF1DFAD52B}"?>
+  <?define GUID_JBIGImageViewer_HelpDocumentComponent="{3C797C86-185C-4B21-BC64-BFCD69726A31}"?>
+  <?define GUID_JBIGImageViewer_ProgramMenuComponent="{C5BA5B6A-94A1-488F-8DA8-2D7C79CF2D62}"?>
+  <?define GUID_JBIGImageViewer_ConfigurationComponent="{2B310CCF-58F2-409A-ACA5-0C90BD3ABB26}"?>
+
+
+  <!-- BUILDLet JBIG Image Viewer Version 1.x.x (for Backward Compatibility) -->
+  <?define GUID_JBIGView_Version1xx_UpgradeCode="{229069CA-7044-4D5F-8322-C964D4C31A02}"?>
+  <?define GUID_JBIGView_Version1xx_Product="{9B468668-62BC-4BB7-B228-F00C9BD92687}"?>
+  <!-- (Components) -->
+  <?define GUID_JBIGView_Version1xx_ProductComponent="{877F02D7-5EE6-4A72-B038-2DC73EBF6914}"?>
+  <?define GUID_JBIGView_Version1xx_ProductComponent_JbigToBitmap="{58987A1D-A80A-4A68-9F52-7846D0EFE176}"?>
+  <?define GUID_JBIGView_Version1xx_ProductComponent_BUILDLet_Library="{610618DC-D6B0-449E-AEB7-9EB4C8C5598D}"?>
+  <?define GUID_JBIGView_Version1xx_ProductComponent_Redist_JbigKit="{480511F9-E9CA-4DF0-B5C9-E0B4DEB512AA}"?>
+  <?define GUID_JBIGView_Version1xx_ProductComponent_Redist_NetPbm="{5A230E52-5B23-4B48-AEB8-37947533ADA8}"?>
+  <?define GUID_JBIGView_Version1xx_Documents="{A1D8996D-7527-4FD3-88EC-5DBFCC2B9926}"?>
+  <?define GUID_JBIGView_Version1xx_ProgramMenu="{5F6F1F1C-D981-4FE3-A39C-A848B44A7C1E}"?>
+  <?define GUID_JBIGView_Version1xx_Configuration="{63F52B9C-DFBE-47BA-8FE9-96FEE7093943}"?>  <!-- Not used for Version 1.0.0 -->
+
+  <!-- BUILDLet JBIG Image Viewer Version 1.2.2.0 (for Backword Compatibility: Change value for change Desktop Shortcut Name) -->
+  <?define GUID_JBIGView_Version122_ProductComponent="{243EB6A0-C6D8-424B-AE91-4F297C183D92}"?>
+
+  <!-- BUILDLet JBIG Image Viewer Version 1.1.1.0 (for Backword Compatibility: Change value for change Desktop Shortcut Name) -->
+  <?define GUID_JBIGView_Version111_ProductComponent="{AA61A82B-E5AC-4491-AA1E-268C272043E0}"?>
+
+</Include>

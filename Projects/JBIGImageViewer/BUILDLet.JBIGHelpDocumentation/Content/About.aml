@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="d836600e-048b-4c7b-849e-1dd393eae316" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+		<introduction>
+			<para>
+        BUILDLet JBIG Image Converter Library は、JBIG1 イメージを他の画像フォーマットに変換するための静的メソッドを提供する
+        <codeEntityReference qualifyHint="true">T:BUILDLet.JBIG.JBIGImageConverter</codeEntityReference> クラスを実装します。
+      </para>
+    </introduction>
+
+
+    <section>
+      <title>Namespaces</title>
+      <content>
+        <table>
+
+          <!-- Table Header -->
+          <tableHeader>
+            <row>
+              <entry>
+                <para>Namespace</para>
+              </entry>
+              <entry>
+                <para>Description</para>
+              </entry>
+            </row>
+          </tableHeader>
+
+          <!-- BUILDLet.JBIG -->
+          <row>
+            <entry>
+              <para>
+                <codeEntityReference qualifyHint="true">N:BUILDLet.JBIG</codeEntityReference>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                <!-- 同じ内容を Namespace Summary にも記載すること。 -->
+                <codeEntityReference qualifyHint="true">N:BUILDLet.JBIG</codeEntityReference> 名前空間には、
+                JBIG1 イメージを他の画像フォーマットに変換するための静的メソッドを提供する
+                <codeEntityReference>T:BUILDLet.JBIG.JBIGImageConverter</codeEntityReference> クラスが含まれます。
+              </para>
+            </entry>
+          </row>
+
+        </table>
+      </content>
+    </section>
+
+
+    <section>
+      <title>Using Commands</title>
+      <content>
+        <para>
+          <codeEntityReference qualifyHint="true">T:BUILDLet.JBIG.JBIGImageConverter</codeEntityReference> は、
+          JBIG1 イメージファイル、または PBM (PPM あるいは PNM) イメージファイルを入力ファイルとして、
+          次のコマンドを実行することによって、他の画像フォーマットのファイルを作成します。
+        </para>
+        <para>
+          たとえば、JBIG1 イメージファイルから PBM イメージファイルを作成する場合は、<command>jbgtopbm.exe</command> コマンドを実行します。
+          また、JBIG1 イメージファイルから ビットマップ イメージファイルを作成する場合は、<command>jbgtopbm.exe</command> コマンドを実行して
+          PBM イメージファイルを一時ファイルとして作成した後に、作成した一時ファイルを入力ファイルとして <command>ppmtobmp.exe</command> コマンドを実行します。
+        </para>
+
+        <table>
+          <!-- Table Header -->
+          <tableHeader>
+            <row>
+              <entry>
+                <para>Command</para>
+              </entry>
+              <entry>
+                <para>Input Format</para>
+              </entry>
+              <entry>
+                <para>Output Format</para>
+              </entry>
+              <entry>
+                <para>Description</para>
+              </entry>
+            </row>
+          </tableHeader>
+
+          <!-- jbgtopbm.exe (JBIG -> PBM) -->
+          <row>
+            <entry>
+              <para>
+                <command>jbgtopbm.exe</command>
+              </para>
+            </entry>
+            <entry>
+              <para>JBIG</para>
+            </entry>
+            <entry>
+              <para>PBM</para>
+            </entry>
+            <entry>
+              <para>JBIG1 イメージ ファイルを PBM (Portable Bit Map) イメージ ファイルに変換します。</para>
+            </entry>
+          </row>
+
+          <!-- ppmtobmp.exe (PPM -> BMP) -->
+          <row>
+            <entry>
+              <para>
+                <command>ppmtobmp.exe</command>
+              </para>
+            </entry>
+            <entry>
+              <para>PPM</para>
+            </entry>
+            <entry>
+              <para>BMP</para>
+            </entry>
+            <entry>
+              <para>PPM (Portable Pixel Map) イメージ ファイルをビットマップ イメージ ファイルに変換します。</para>
+            </entry>
+          </row>
+
+          <!-- ppmtojpeg.exe (PPM -> JPEG) -->
+          <row>
+            <entry>
+              <para>
+                <command>ppmtojpeg.exe</command>
+              </para>
+            </entry>
+            <entry>
+              <para>PPM</para>
+            </entry>
+            <entry>
+              <para>JPEG</para>
+            </entry>
+            <entry>
+              <para>PPM (Portable Pixel Map) イメージ ファイルを JPEG (Joint Photographic Experts Group) イメージ ファイルに変換します。</para>
+            </entry>
+          </row>
+
+          <!-- ppmtogif.exe (PPM -> GIF) -->
+          <row>
+            <entry>
+              <para>
+                <command>ppmtogif.exe</command>
+              </para>
+            </entry>
+            <entry>
+              <para>PPM</para>
+            </entry>
+            <entry>
+              <para>GIF</para>
+            </entry>
+            <entry>
+              <para>PPM (Portable Pixel Map) イメージ ファイルを GIF (Graphics Interchange Format) イメージ ファイルに変換します。</para>
+            </entry>
+          </row>
+
+          <!-- pnmtopng.exe (PNM -> PNG) -->
+          <row>
+            <entry>
+              <para>
+                <command>pnmtopng.exe</command>
+              </para>
+            </entry>
+            <entry>
+              <para>PNM</para>
+            </entry>
+            <entry>
+              <para>PNG</para>
+            </entry>
+            <entry>
+              <para>PNM (Portable Any Map) イメージ ファイルを PNG (Portable Network Graphics) イメージ ファイルに変換します。</para>
+            </entry>
+          </row>
+
+          <!-- pnmtotiff.exe (PNM -> TIFF) -->
+          <row>
+            <entry>
+              <para>
+                <command>pnmtotiff.exe</command>
+              </para>
+            </entry>
+            <entry>
+              <para>PNM</para>
+            </entry>
+            <entry>
+              <para>TIFF</para>
+            </entry>
+            <entry>
+              <para>PNM (Portable Any Map) イメージ ファイルを TIFF (Tagged Image File Format) イメージ ファイルに変換します。</para>
+            </entry>
+          </row>
+          
+        </table>
+      </content>
+    </section>
+
+		<relatedTopics>
+			<link xlink:href="36e40439-2a82-4aa6-a34a-21555a685991" />
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>

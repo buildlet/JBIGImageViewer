@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BUILDLet.JBIG</name>
+    </assembly>
+    <members>
+        <member name="T:BUILDLet.JBIG.JBIGImageConverter">
+            <summary>
+            JIBG1 フォーマットの画像ファイルの、他のフォーマットの画像ファイルへの変換を実装します。
+            </summary>
+        </member>
+        <member name="M:BUILDLet.JBIG.JBIGImageConverter.#ctor">
+            <summary>
+            <see cref="T:BUILDLet.JBIG.JBIGImageConverter"/> クラスの新しいインスタンスを初期化します。
+            </summary>
+        </member>
+        <member name="M:BUILDLet.JBIG.JBIGImageConverter.Convert(System.String,System.String@,BUILDLet.JBIG.JBIGImageConverterInputImageFormat,BUILDLet.JBIG.JBIGImageConverterOutputImageFormat)">
+            <summary>
+            JIBG1 フォーマットの画像ファイルをビットマップ画像ファイルに変換します。
+            </summary>
+            <param name="inputFileName">入力画像ファイルのファイル名</param>
+            <param name="outputFileName">出力画像ファイルのファイル名</param>
+            <param name="inputFormat">入力画像ファイルのイメージ フォーマット</param>
+            <param name="outputFormat">出力画像ファイルのイメージ フォーマット</param>
+            <returns>出力画像ファイルの作成に成功した場合に true を返します。</returns>
+        </member>
+        <member name="T:BUILDLet.JBIG.JBIGImageConverterInputImageFormat">
+            <summary>
+            <see cref="T:BUILDLet.JBIG.JBIGImageConverter"/> クラスがサポートしている入力画像フォーマットを表します。
+            </summary>
+        </member>
+        <member name="F:BUILDLet.JBIG.JBIGImageConverterInputImageFormat.Jbig">
+            <summary>
+            JBIG 1 image format
+            </summary>
+        </member>
+        <member name="F:BUILDLet.JBIG.JBIGImageConverterInputImageFormat.Pbm">
+            <summary>
+            PBM (Portable Bitmap), PNM (Portable Any Map) or PPM (Portable Pixel Map) image format
+            </summary>
+        </member>
+        <member name="T:BUILDLet.JBIG.JBIGImageConverterOutputImageFormat">
+            <summary>
+            <see cref="T:BUILDLet.JBIG.JBIGImageConverter"/> クラスがサポートしている変換先の画像フォーマットを表します。
+            </summary>
+        </member>
+        <member name="F:BUILDLet.JBIG.JBIGImageConverterOutputImageFormat.Pbm">
+            <summary>
+            PBM (Portable Bitmap), PNM (Portable Any Map) or PPM (Portable Pixel Map) image format
+            </summary>
+        </member>
+        <member name="F:BUILDLet.JBIG.JBIGImageConverterOutputImageFormat.Bmp">
+            <summary>
+            Bitmap (BMP) image format
+            </summary>
+        </member>
+        <member name="F:BUILDLet.JBIG.JBIGImageConverterOutputImageFormat.Png">
+            <summary>
+            W3C Portable Network Graphics (PNG) image format
+            </summary>
+        </member>
+        <member name="F:BUILDLet.JBIG.JBIGImageConverterOutputImageFormat.Gif">
+            <summary>
+            Graphics Interchange Format (GIF) image format
+            </summary>
+        </member>
+        <member name="F:BUILDLet.JBIG.JBIGImageConverterOutputImageFormat.Jpeg">
+            <summary>
+             Joint Photographic Experts Group (JPEG) image format
+            </summary>
+        </member>
+        <member name="F:BUILDLet.JBIG.JBIGImageConverterOutputImageFormat.Tiff">
+            <summary>
+            Tagged Image File Format (TIFF) image format
+            </summary>
+        </member>
+        <member name="T:BUILDLet.JBIG.Properties.Resources">
+            <summary>
+              ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.ResourceManager">
+            <summary>
+              このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.Culture">
+            <summary>
+              厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+              現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.ErrorMessageTemplate">
+            <summary>
+              Failed to run &quot;{0}&quot;. に類似しているローカライズされた文字列を検索します。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.FileName_JbgToPbm_EXE">
+            <summary>
+              jbgtopbm.exe に類似しているローカライズされた文字列を検索します。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.FileName_PnmToPng_EXE">
+            <summary>
+              pnmtopng.exe に類似しているローカライズされた文字列を検索します。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.FileName_PnmToTiff_EXE">
+            <summary>
+              pnmtotiff.exe に類似しているローカライズされた文字列を検索します。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.FileName_PpmToBmp_EXE">
+            <summary>
+              ppmtobmp.exe に類似しているローカライズされた文字列を検索します。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.FileName_PpmToGif_EXE">
+            <summary>
+              ppmtogif.exe に類似しているローカライズされた文字列を検索します。
+            </summary>
+        </member>
+        <member name="P:BUILDLet.JBIG.Properties.Resources.FileName_PpmToJpeg_EXE">
+            <summary>
+              ppmtojpeg.exe に類似しているローカライズされた文字列を検索します。
+            </summary>
+        </member>
+    </members>
+</doc>
